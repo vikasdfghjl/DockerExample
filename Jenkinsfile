@@ -10,9 +10,9 @@ pipeline {
             stage("build"){
                 steps{
                     echo 'Executing npm...'
-                   /*   nodejs('Node-18.15.0'){
+                    nodejs('Node-18.15.0'){
                         sh 'npm install'
-                    } */                    
+                    }                    
                     
                 }
             }
