@@ -11,8 +11,8 @@ pipeline {
                 steps{
                     echo 'Executing npm...'
                     /*nodejs('Node-18.15.0'){
-                        sh 'npm install'*/
-                    }                     
+                        sh 'npm install'
+                    }      */               
                     
                 }
             }
