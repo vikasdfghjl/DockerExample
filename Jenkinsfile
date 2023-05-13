@@ -10,8 +10,7 @@ pipeline {
             stage("build"){
                 steps{
                     echo 'Executing npm...'
-                    sh 'npm install'
-                                        
+                    sh 'npm install'                                       
                     
                 }
             }
@@ -29,6 +28,32 @@ pipeline {
                     
                 }
             }
+
+            stage("Build & Docker image"){
+                steps{
+                    sh 'docker build -t vikasdfghjl/nodeDocker:${BUILD_NUMBER} .'
+                    
+                }
+            }
+
+            stage("docker login"){
+                steps{
+                    withCredentials([string(credentialsId: 'dockerpwd', variable: 'Dockerpwd')]) {
+                    sh 'docker login -u vikasdfghjl -p ${Dockerpwd}'
+                }
+                    
+                }
+            }
+
+            stage("docker push"){
+                steps{
+                   sh 'docker push vikasdfghjl/nodeDocker:${BUILD_NUMBER}'
+                    
+                }
+            }
+
+
+
         }
 
 
