@@ -29,29 +29,6 @@ pipeline {
                 }
             }
 
-            stage("Build & Docker image"){
-                steps{
-                    sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
-                    
-                }
-            }
-
-            stage("docker login"){
-                steps{
-                  withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', passwordVariable: 'dockerpwd', usernameVariable: 'dockerusername')]) {
-                        sh 'docker login -u ${dockerusername} -p ${dockerpwd}'
-                    }
-                    
-                }
-            }
-
-            stage("docker push"){
-                steps{
-                   sh 'docker push vikasdfghjl/nodeDocker:${BUILD_NUMBER}'
-                    
-                }
-            }
-
 
 
         }
