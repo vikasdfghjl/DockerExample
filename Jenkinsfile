@@ -3,7 +3,7 @@ pipeline {
      agent any
 
       tools{
-        dockerTool 'docker'
+        dockerTool 'Docker'
         nodejs 'Node-18.15.0' //can declare tools here as well so you dont have use the wrapper class at statement 12
                                 // just the sh 'npm install'
      }        
