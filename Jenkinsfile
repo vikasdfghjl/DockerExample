@@ -30,7 +30,14 @@ pipeline {
                 }
             }
 
-            
+            stage("docker login"){
+                steps{
+                 withCredentials([string(credentialsId: 'dockerpwd-id', variable: 'passwordvar')]) {
+                 sh 'echo ${passwordvar} | docker login --username vikasdfghjl --password-stdin'
+                }
+                    
+                }
+            }
 
             stage("Build & Docker image"){
                 steps{
@@ -39,9 +46,19 @@ pipeline {
                 }
             }
 
+            
+
+            stage("docker push"){
+                steps{
+                   sh 'docker push vikasdfghjl/nodeDocker:${BUILD_NUMBER}'
+                    
+                }
+            }
+
+
 
         }
+    }
 
 
      
-}
