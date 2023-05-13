@@ -40,7 +40,7 @@ pipeline {
             stage("docker login"){
                 steps{
                     withCredentials([string(credentialsId: 'dockerpwd-id', variable: 'Dockerpwd')]) {
-                    sh 'docker login -u vikasdfghjl -p ${Dockerpwd}'
+                    sh 'docker login -u vikasdfghjl -p ${dockerpwd-id}'
                 }
                     
                 }
