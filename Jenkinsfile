@@ -31,7 +31,7 @@ pipeline {
 
             stage("Build & Docker image"){
                 steps{
-                    sh 'docker build -t vikasdfghjl/nodedockerexam:${BUILD_NUMBER} .'
+                    sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
                     
                 }
             }
