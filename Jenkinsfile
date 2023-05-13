@@ -32,15 +32,15 @@ pipeline {
 
             stage("Build & Docker image"){
                 steps{
-                    sh `docker build -t vikasdfghjl/nodeDocker:${BUILD_NUMBER} .`
+                    sh 'docker build -t vikasdfghjl/nodeDocker:${BUILD_NUMBER} .'
                     
                 }
             }
 
             stage("docker login"){
                 steps{
-                    withCredentials([string(credentialsId: 'dockerpwd', variable: 'Dockerpwd')]) {
-                    sh `docker login -u vikasdfghjl -p ${Dockerpwd}`
+                    withCredentials([string(credentialsId: 'dockerpwd-id', variable: 'Dockerpwd')]) {
+                    sh 'docker login -u vikasdfghjl -p ${Dockerpwd}'
                 }
                     
                 }
@@ -48,7 +48,7 @@ pipeline {
 
             stage("docker push"){
                 steps{
-                   sh `docker push vikasdfghjl/nodeDocker:${BUILD_NUMBER}`
+                   sh 'docker push vikasdfghjl/nodeDocker:${BUILD_NUMBER}'
                     
                 }
             }
