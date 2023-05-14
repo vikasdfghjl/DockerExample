@@ -1,7 +1,9 @@
 pipeline {
      
      agent any
-     
+     environment{
+        DOCKERHUB_CREDS = 'DockerHubCreds'
+     }
 
       tools{
         dockerTool 'Docker'
@@ -34,7 +36,7 @@ pipeline {
             stage("docker login"){
                 steps{
                  withCredentials([string(credentialsId: 'DOCKER_ACCESS_TOKEN', variable: 'DOCKER_ACCESS_TOKEN')]) {
-                 sh 'echo ${DOCKER_ACCESS_TOKEN} | docker login vikasdfghjl -u vikasdfghjl -p -stdin'
+                 sh 'echo ${DOCKER_ACCESS_TOKEN} | docker login vikasdfghjl -u vikasdfghjl --password-stdin'
                 }
                     
                 }
