@@ -1,6 +1,10 @@
 pipeline {
      
      agent any
+     environment{
+        DOCKER_REGISTRY = "https://hub.docker.com/repository/docker/vikasdfghjl/node-app/general"
+        DOCKER_REGISTRY_CREDS = "DockerHubCreds"
+     }
 
       tools{
         dockerTool 'Docker'
@@ -30,16 +34,34 @@ pipeline {
                 }
             }
 
-            stage("docker login"){
+            stages {
+            stage('Build') {
+            steps {
+             withDockerRegistry([credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}", url: "${DOCKER_REGISTRY}"]) {
+             sh "docker build -t vikasdfghjkl/node-app:${BUILD_NUMBER} ."
+             }
+            }
+             }
+            }
+            stage('Push') {
+            steps {
+                withDockerRegistry([credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}", url: "${DOCKER_REGISTRY}"]) {
+                 sh "docker push vikasdfghjkl/node-app:${BUILD_NUMBER}"
+                    }
+                }
+            }
+
+
+            /* stage("docker login"){
                 steps{
                  withCredentials([string(credentialsId: 'dockerpwdPAT', variable: 'dockerpwd')]) {
                  sh 'echo ${passwordvar} | docker login --username vikasdfghjl --password -stdin'
                 }
                     
                 }
-            }
+            } */
 
-            stage("Build & Docker image"){
+            /* stage("Build & Docker image"){
                 steps{
                     sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
                     
@@ -53,7 +75,7 @@ pipeline {
                    sh 'docker push vikasdfghjl/nodeDocker:${BUILD_NUMBER}'
                     
                 }
-            }
+             }*/
 
 
 
