@@ -1,10 +1,7 @@
 pipeline {
      
      agent any
-     environment{
-        DOCKER_REGISTRY = "https://hub.docker.com/repository/docker/vikasdfghjl/node-app/general"
-        DOCKER_REGISTRY_CREDS = "DockerHubCreds"
-     }
+     
 
       tools{
         dockerTool 'Docker'
@@ -34,34 +31,16 @@ pipeline {
                 }
             }
 
-            stages {
-            stage('Build') {
-            steps {
-             withDockerRegistry([credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}", url: "${DOCKER_REGISTRY}"]) {
-             sh "docker build -t vikasdfghjkl/node-app:${BUILD_NUMBER} ."
-             }
-            }
-             }
-            }
-            stage('Push') {
-            steps {
-                withDockerRegistry([credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}", url: "${DOCKER_REGISTRY}"]) {
-                 sh "docker push vikasdfghjkl/node-app:${BUILD_NUMBER}"
-                    }
-                }
-            }
-
-
-            /* stage("docker login"){
+            stage("docker login"){
                 steps{
-                 withCredentials([string(credentialsId: 'dockerpwdPAT', variable: 'dockerpwd')]) {
-                 sh 'echo ${passwordvar} | docker login --username vikasdfghjl --password -stdin'
+                 withCredentials([string(credentialsId: 'DOCKER_ACCESS_TOKEN', variable: 'DOCKER_ACCESS_TOKEN')]) {
+                 sh 'echo ${DOCKER_ACCESS_TOKEN} | docker login --username vikasdfghjl --password -stdin'
                 }
                     
                 }
-            } */
+            } 
 
-            /* stage("Build & Docker image"){
+            stage("Build & Docker image"){
                 steps{
                     sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
                     
@@ -72,10 +51,10 @@ pipeline {
 
             stage("docker push"){
                 steps{
-                   sh 'docker push vikasdfghjl/nodeDocker:${BUILD_NUMBER}'
+                   sh 'docker push vikasdfghjl/node-app:${BUILD_NUMBER}'
                     
                 }
-             }*/
+             }
 
 
 
