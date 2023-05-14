@@ -36,7 +36,7 @@ pipeline {
             stage("docker login"){
                 steps{
                  withCredentials([string(credentialsId: 'DOCKER_ACCESS_TOKEN', variable: 'DOCKER_ACCESS_TOKEN')]) {
-                 sh 'echo ${DOCKER_ACCESS_TOKEN} | docker login -u vikasdfghjl --password -stdin https://hub.docker.com/repository/docker/vikasdfghjl/node-app/general'
+                 sh 'echo ${DOCKER_ACCESS_TOKEN} | docker login -u vikasdfghjl --password -stdin'
                 }
                     
                 }
