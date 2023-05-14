@@ -33,7 +33,7 @@ pipeline {
             stage("docker login"){
                 steps{
                  withCredentials([string(credentialsId: 'dockerpwd-id', variable: 'passwordvar')]) {
-                 sh 'echo ${passwordvar} | docker login https://hub.docker.com/ --username vikasdfghjl --password -stdin'
+                 sh 'echo ${passwordvar} | docker login https://hub.docker.com/v2/ --username vikasdfghjl --password -stdin'
                 }
                     
                 }
