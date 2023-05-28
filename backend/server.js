@@ -4,7 +4,7 @@ const PORT = 3000;
 const app = express()
 
 app.get('/', (req,res) => {
-    res.send("This is an Example of jenkins, Docker, and Github By Vikas Singh")
+    res.send("This is an Example of jenkins, Docker, and Github By Vikas")
 })
 
 app.listen(PORT, (req,res) => {
