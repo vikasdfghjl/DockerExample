@@ -2,7 +2,7 @@ pipeline {
      
      agent any
      environment{
-        DOCKERHUB_CREDS = 'DockerHubCreds'
+
      }
 
       tools{
@@ -35,12 +35,8 @@ pipeline {
 
             stage("docker login"){
                 steps{
-                 withCredentials([usernamePassword(credentialsId: 'c495b40d-da43-4eb5-8973-8315922e704d', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
 
-                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                 }
-
-                
+                sh 'docker login -u vikasdfghjl --password dckr_pat_6gDez-ReTsyPJ3ocNT8ChSXrMLE'
                     
                 }
             } 
