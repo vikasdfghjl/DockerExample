@@ -1,9 +1,6 @@
 pipeline {
      
      agent any
-     environment{
-
-     }
 
       tools{
         dockerTool 'Docker'
