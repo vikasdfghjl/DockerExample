@@ -29,31 +29,28 @@ pipeline {
                 }
             }
 
-            stage("docker build "){
-                            steps{
-                                sh "docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} ."
-                            }
-                        }
-
             stage("docker login"){
                 steps{
                 withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
                    sh '''
                    echo "${password} | docker login -u vikasdfghjl --password-stdin docker.io"
-                   sh "docker push vikasdfghjl/node-app:${BUILD_NUMBER}"
                    '''
                 }
               }
             } 
 
-
+            stage("docker build "){
+                steps{
+                    sh "docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} ."
+                }
+            }
 
             
 
             stage("docker push"){
                 steps{
 
-                sh "echo vikasdfghjl"
+                sh "docker push vikasdfghjl/node-app:${BUILD_NUMBER}"
 
                 }
             }
