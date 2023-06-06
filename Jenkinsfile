@@ -50,7 +50,7 @@ pipeline {
             stage("docker push"){
                 steps{
 
-                sh "docker push {{vikasdfghjl}}/{{node-app}}:{{${BUILD_NUMBER}}}"
+                sh "docker push {{vikasdfghjl/node-app}}:{{${BUILD_NUMBER}}}"
 
                 }
             }
