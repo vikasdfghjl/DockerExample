@@ -37,16 +37,12 @@ pipeline {
                    echo "${password} | docker login -u vikasdfghjl --password-stdin"
                    '''
                 }
-
-
-                    
                 }
             } 
 
             stage("Build & Docker image"){
                 steps{
                     sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
-                    
                 }
             }
 
@@ -54,13 +50,15 @@ pipeline {
 
             stage("docker push"){
                 steps{
-                   sh 'docker push vikasdfghjl/node-app:${BUILD_NUMBER}'
-                    
+                script {
+                docker.withRegistry('https://registry.docker.io', 'my-docker-creds') {
+
+                docker.image('vikasdfghjl/node-app:${BUILD_NUMBER}').push()
                 }
-             }
+               }
 
-
-
+                }
+            }
         }
 
         post{
