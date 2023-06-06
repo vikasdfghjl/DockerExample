@@ -19,9 +19,7 @@ pipeline {
             stage("docker build "){
 
                 steps{
-
                  sh "docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} ."
-
                 }
             }
 
@@ -31,12 +29,12 @@ pipeline {
                     DOCKER_CREDENTIALS = 'my-docker-creds'
                 }
                steps{
-                    script{
+
                         withDockerRegistry([credentialsId: env.DOCKER_CREDENTIALS, url: env.DOCKER_REGISTRY]) {
                             // Push the Docker image
-                            dockerImage.push()
+                            sh "docker push vikasdfghjl/node-app:${BUILD_NUMBER}"
                         }
-                    }
+
 
                }
             }
