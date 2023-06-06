@@ -40,6 +40,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
                    sh '''
                    echo "${password} | docker login -u vikasdfghjl --password-stdin docker.io"
+                   sh "docker push vikasdfghjl/node-app:${BUILD_NUMBER}"
                    '''
                 }
               }
@@ -52,7 +53,7 @@ pipeline {
             stage("docker push"){
                 steps{
 
-                sh "docker push vikasdfghjl/node-app:${BUILD_NUMBER}"
+                sh "echo vikasdfghjl"
 
                 }
             }
