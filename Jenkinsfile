@@ -6,53 +6,43 @@ pipeline {
         dockerTool 'Docker'
         nodejs 'Node-18.15.0'
         }
+
         stages {
-            stage("build"){
+            stage("Build"){
                 steps{
+                checkout scm
                     echo 'Executing npm...'
-                    sh 'npm install'                                       
-                    
+                    sh 'npm install'
                 }
             }
-
-            stage("test"){
-                steps{
-                    echo 'testing the application...'
-                    
-                }
-            }
-
-            stage("deploy"){
-                steps{
-                    echo 'deploying the application...'
-                    
-                }
-            }
-
-            stage("docker login"){
-                steps{
-                withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
-                   sh '''
-                   echo "${password} | docker login -u vikasdfghjl --password-stdin docker.io"
-                   '''
-                }
-              }
-            } 
 
             stage("docker build "){
+
                 steps{
-                    sh "docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} ."
+                    script{
+
+                        def dockerImage
+
+                        dockerImage = docker.build('vikasdfghjl/node-app:${BUILD_NUMBER}')
+
+                    }
                 }
             }
 
-            
-
-            stage("docker push"){
-                steps{
-
-                sh "docker push vikasdfghjl/node-app:${BUILD_NUMBER}"
-
+            stage("docker login and push"){
+                environment{
+                    DOCKER_REGISTRY = 'http://hub.docker.com'
+                    DOCKER_CREDENTIALS = 'my-docker-creds'
                 }
+               steps{
+                    script{
+                        withDockerRegistry([credentialsId: env.DOCKER_CREDENTIALS, url: env.DOCKER_REGISTRY]) {
+                            // Push the Docker image
+                            dockerImage.push()
+                        }
+                    }
+
+               }
             }
         }
 
@@ -61,6 +51,7 @@ pipeline {
                 sh 'docker logout'
             }
         }
+      }
  }
 
 
