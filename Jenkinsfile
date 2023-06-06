@@ -19,13 +19,9 @@ pipeline {
             stage("docker build "){
 
                 steps{
-                    script{
 
-                        def dockerImage
+                 sh "docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} ."
 
-                        dockerImage = docker.build('vikasdfghjl/node-app:${BUILD_NUMBER}')
-
-                    }
                 }
             }
 
