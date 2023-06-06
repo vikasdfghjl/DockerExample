@@ -53,7 +53,7 @@ pipeline {
                 script {
                 docker.withRegistry('https://registry.docker.io', 'my-docker-creds') {
 
-                docker.image('vikasdfghjl/node-app:${BUILD_NUMBER}').push()
+                docker.image('node-app').push()
                 }
                }
 
