@@ -51,7 +51,7 @@ pipeline {
             stage("docker push"){
                 steps{
                 script {
-                docker.withRegistry('https://registry.docker.io', 'my-docker-creds') {
+                docker.withRegistry('https://registry.hub.docker.com', 'my-docker-creds') {
 
                 docker.image('node-app').push()
                 }
