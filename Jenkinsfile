@@ -29,6 +29,12 @@ pipeline {
                 }
             }
 
+            stage("docker build "){
+                            steps{
+                                sh "docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} ."
+                            }
+                        }
+
             stage("docker login"){
                 steps{
                 withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
@@ -39,18 +45,14 @@ pipeline {
               }
             } 
 
-            stage("docker build "){
-                steps{
-                    sh "docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} ."
-                }
-            }
+
 
             
 
             stage("docker push"){
                 steps{
 
-                sh "docker push {{vikasdfghjl/node-app}}:{{${BUILD_NUMBER}}}"
+                sh "docker push vikasdfghjl/node-app:${BUILD_NUMBER}"
 
                 }
             }
