@@ -4,9 +4,8 @@ pipeline {
 
       tools{
         dockerTool 'Docker'
-        nodejs 'Node-18.15.0' //can declare tools here as well so you dont have use the wrapper class at statement 12
-                                // just the sh 'npm install'
-     }        
+        nodejs 'Node-18.15.0'
+        }
         stages {
             stage("build"){
                 steps{
@@ -37,10 +36,10 @@ pipeline {
                    echo "${password} | docker login -u vikasdfghjl --password-stdin"
                    '''
                 }
-                }
+              }
             } 
 
-            stage("Build & Docker image"){
+            stage("docker build "){
                 steps{
                     sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
                 }
@@ -50,12 +49,8 @@ pipeline {
 
             stage("docker push"){
                 steps{
-                script {
-                docker.withRegistry('https://registry.hub.docker.com', 'my-docker-creds') {
 
-                docker.image('node-app').push()
-                }
-               }
+                sh 'docker push vikasdfghjl/node-app:${BUILD_NUMBER}'
 
                 }
             }
@@ -66,7 +61,7 @@ pipeline {
                 sh 'docker logout'
             }
         }
-    }
+ }
 
 
      
