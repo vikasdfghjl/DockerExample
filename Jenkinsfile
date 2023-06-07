@@ -23,7 +23,7 @@ pipeline {
 
                     docker.withRegistry('https://index.docker.io/v1/','docker-creds') {
 
-                        def dockerImage = docker.build('vikasdfghjl/node-app:${BUILD_NUMBER}')
+                        def dockerImage = docker.build('vikasdfghjl/node-app:latest')
 
                         dockerImage.push()
                     }
