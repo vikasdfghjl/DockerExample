@@ -43,8 +43,8 @@ pipeline {
                     steps{
                     sh '''
 
-                    docker stop vikasdfghjl/node-app
-                    docker rm vikasdfghjl/node-app
+                    docker stop vikasdfghjl/node-app:latest
+                    docker rm vikasdfghjl/node-app:latest
                     docker pull vikasdfghjl/node-app:latest
                     docker -d -p 3000:3000 vikasdfghjl/node-app:latest
 
