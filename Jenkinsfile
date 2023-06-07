@@ -16,45 +16,29 @@ pipeline {
                 }
             }
 
-            stage("test"){
+
+
+
+
+
+
+
+            stage("docker build and Push"){
                 steps{
-                    echo 'testing the application...'
+                script{
 
+                    withDockerRegistry(credentialsId: 'docker-creds', toolName: 'Docker') {
+
+                        def dockerImage = docker.build('vikasdfghjl/node-app:${BUILD_NUMBER}')
+
+                        dockerImage.push()
+                    }
                 }
-            }
 
-            stage("deploy"){
-                steps{
-                    echo 'deploying the application...'
-
-                }
-            }
-
-            stage("docker build "){
-                steps{
-
-                   sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
-                }
-            }
-
-
-            stage("docker login"){
-                steps{
-                withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
-                   sh '''
-                   echo "${docker-pwd-id} | docker login -u vikasdfghjl --password-stdin"
-                   '''
-                }
               }
             }
 
-            stage("docker push"){
-                steps{
 
-                     sh 'docker push vikasdfghjl/node-app:${BUILD_NUMBER}'
-
-                }
-            }
         }
 
         post{
