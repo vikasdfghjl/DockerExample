@@ -2,10 +2,11 @@ pipeline {
      
      agent any
 
-      tools{
-        dockerTool 'Docker'
-        nodejs 'Node-18.15.0'
+        tools{
+            dockerTool 'Docker'
+            nodejs 'Node-18.15.0'
         }
+
         stages {
             stage("build"){
                 steps{
@@ -29,30 +30,28 @@ pipeline {
                 }
             }
 
+            stage("docker build "){
+                steps{
+
+                   sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
+                }
+            }
+
+
             stage("docker login"){
                 steps{
                 withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
                    sh '''
-                   docker login
-                   echo "${password} | docker login -u vikasdfghjl --password-stdin"
+                   echo "${docker-pwd-var} | docker login -u vikasdfghjl --password-stdin"
                    '''
                 }
               }
             }
 
-            stage("docker build "){
-                steps{
-
-                    sh 'docker build -t vikasdfghjl/node-app .'
-                }
-            }
-
-
-
             stage("docker push"){
                 steps{
 
-                     sh 'docker push vikasdfghjl/node-app'
+                     sh 'docker push vikasdfghjl/node-app:${BUILD_NUMBER}'
 
                 }
             }
