@@ -42,7 +42,7 @@ pipeline {
             stage("docker build "){
                 steps{
 
-                    sh 'docker build -t vikasdfghjl/node-app:${BUILD_NUMBER} .'
+                    sh 'docker build -t vikasdfghjl/node-app .'
                 }
             }
 
@@ -50,7 +50,7 @@ pipeline {
 
             stage("docker push"){
                 steps{
-                     sh ' docker tag node-app vikasdfghjl/node-app'
+                     sh ' docker tag node-app vikasdfghjl/node-app:${BUILD_NUMBER}'
                      sh 'docker push vikasdfghjl/node-app:${BUILD_NUMBER}'
 
                 }
