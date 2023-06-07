@@ -2,7 +2,6 @@ pipeline {
      
      agent any
 
-
         tools{
             dockerTool 'Docker'
             nodejs 'Node-18.15.0'
@@ -41,9 +40,10 @@ pipeline {
 
             stage("docker login"){
                 steps{
-
-                   sh 'docker login -u vikasdfghjl --password dckr_pat_6gDez-ReTsyPJ3ocNT8ChSXrMLE'
-
+                withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
+                   sh '''
+                   echo ${docker-pwd-var} | docker login -username vikasdfghjl --password-stdin
+                   '''
                 }
               }
             }
