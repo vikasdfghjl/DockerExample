@@ -33,6 +33,7 @@ pipeline {
                 steps{
                 withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
                    sh '''
+                   docker login
                    echo "${password} | docker login -u vikasdfghjl --password-stdin"
                    '''
                 }
