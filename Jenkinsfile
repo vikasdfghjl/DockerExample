@@ -42,7 +42,7 @@ pipeline {
                 steps{
                 withCredentials([string(credentialsId: 'docker-pwd-id', variable: 'docker-pwd-var')]) {
                    sh '''
-                   aws ecr get-login-password --region ap-south-1 | docker login -u AWS --password-stdin ec2-user@ec2-43-205-198-138.dkr.ecr.ap-south-1.amazonaws.com
+                   docker login -u vikasdfghjl --password ${docker-pwd-var}
                    '''
                 }
               }
